@@ -1,0 +1,78 @@
+[gd_scene load_steps=4 format=3 uid="uid://ctlinj1tr51xd"]
+
+[ext_resource type="Texture2D" uid="uid://dfcfo2q4e68dq" path="res://art/particles/star.png" id="1_454er"]
+
+[sub_resource type="Animation" id="Animation_xvs16"]
+resource_name = "default"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Star1:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(-2, -2, 1),
+"update": 0,
+"values": [-10.0, 10.0, -10.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Star1:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 1.5, 2),
+"transitions": PackedFloat32Array(0.5, -2, 2, 1),
+"update": 0,
+"values": [0.0, -5.0, 5.0, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Star2:position:x")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(-2, -2, 1),
+"update": 0,
+"values": [10.0, -10.0, 10.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Star2:position:y")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.5, 1.5, 2),
+"transitions": PackedFloat32Array(0.5, -2, 2, 1),
+"update": 0,
+"values": [0.0, 5.0, -5.0, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_boo7f"]
+_data = {
+"default": SubResource("Animation_xvs16")
+}
+
+[node name="StunnedEffect" type="Node2D"]
+scale = Vector2(3, 3)
+
+[node name="Star1" type="Sprite2D" parent="."]
+position = Vector2(-10, 0)
+texture = ExtResource("1_454er")
+
+[node name="Star2" type="Sprite2D" parent="."]
+position = Vector2(10, 0)
+texture = ExtResource("1_454er")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_boo7f")
+}
+autoplay = "default"

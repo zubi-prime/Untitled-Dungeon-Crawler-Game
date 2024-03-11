@@ -1,0 +1,112 @@
+[gd_scene load_steps=12 format=3 uid="uid://cgk5putdjbobm"]
+
+[ext_resource type="Script" path="res://bullets/enemyBullet.gd" id="1_ak8nl"]
+[ext_resource type="Texture2D" uid="uid://iuqc88hsy6cf" path="res://art/bullets/bulletBasicBeeger.png" id="2_onmsg"]
+[ext_resource type="Script" path="res://stateMachine.gd" id="3_2u48a"]
+[ext_resource type="Script" path="res://bulletStates/basicBulletState.gd" id="4_8lh5g"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gu5bc"]
+atlas = ExtResource("2_onmsg")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e1wgt"]
+atlas = ExtResource("2_onmsg")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wjj4h"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gu5bc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e1wgt")
+}],
+"loop": true,
+"name": &"default",
+"speed": 3.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bf4bq"]
+radius = 21.0238
+
+[sub_resource type="Animation" id="Animation_c4wtb"]
+resource_name = "despawn"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(6, 1),
+"update": 0,
+"values": [Vector2(3, 3), Vector2(0, 0)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_536yd"]
+resource_name = "spawn"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(0.15, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(3, 3)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_84psb"]
+_data = {
+"despawn": SubResource("Animation_c4wtb"),
+"spawn": SubResource("Animation_536yd")
+}
+
+[node name="EnemyBulletBasicBeeger" type="Area2D"]
+collision_layer = 16
+collision_mask = 34
+script = ExtResource("1_ak8nl")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+modulate = Color(1, 0.45098, 0.458824, 1)
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_wjj4h")
+autoplay = "default"
+
+[node name="Hitbox" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_bf4bq")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_84psb")
+}
+autoplay = "spawn"
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("3_2u48a")
+
+[node name="Basic" type="Node" parent="StateMachine"]
+script = ExtResource("4_8lh5g")
+
+[connection signal="area_entered" from="." to="." method="areaEntered"]
+[connection signal="body_entered" from="." to="." method="bodyEntered"]

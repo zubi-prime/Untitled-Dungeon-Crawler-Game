@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ZoneData" load_steps=2 format=3 uid="uid://ce4duegcd8v64"]
+
+[ext_resource type="Script" path="res://zoneData.gd" id="1_ock2p"]
+
+[resource]
+script = ExtResource("1_ock2p")
+title = "pinkDungeon"
+rooms = Array[String](["normal1", "elbow1", "ring1"])
+roomsFromRight = Array[String](["normal1", "ring1"])
+roomsFromLeft = Array[String](["normal1", "elbow1", "ring1"])
+roomsFromUp = Array[String](["normal1", "elbow1", "ring1"])
+roomsFromDown = Array[String](["elbow1", "ring1"])
+exitRooms = Array[String](["exit"])
+bossRooms = Array[String]([])

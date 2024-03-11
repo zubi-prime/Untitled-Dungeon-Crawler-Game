@@ -1,0 +1,65 @@
+[gd_scene load_steps=8 format=3 uid="uid://d1rdn42b6pe2s"]
+
+[ext_resource type="Script" path="res://pickups/coin.gd" id="1_a551q"]
+[ext_resource type="Texture2D" uid="uid://d2q2xxr11yfjn" path="res://art/pickups/coin.png" id="2_ffo2l"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n2han"]
+atlas = ExtResource("2_ffo2l")
+region = Rect2(0, 0, 8, 8)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_f1yne"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n2han")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_iafwq"]
+radius = 12.0
+
+[sub_resource type="Animation" id="Animation_qiy5t"]
+resource_name = "spawn"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(3, 3)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_w6lll"]
+_data = {
+"spawn": SubResource("Animation_qiy5t")
+}
+
+[node name="CoinCopper" type="Area2D"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_a551q")
+value = 1
+title = "copper"
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+scale = Vector2(1e-05, 1e-05)
+sprite_frames = SubResource("SpriteFrames_f1yne")
+
+[node name="Hitbox" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_iafwq")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_w6lll")
+}
+autoplay = "spawn"
+
+[connection signal="area_entered" from="." to="." method="areaEntered"]

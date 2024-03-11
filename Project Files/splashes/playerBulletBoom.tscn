@@ -1,0 +1,53 @@
+[gd_scene load_steps=9 format=3 uid="uid://c1gdh3nawmc5v"]
+
+[ext_resource type="Texture2D" uid="uid://cal2bd7qgvm2t" path="res://art/particles/bulletBoom.png" id="1_gde8r"]
+[ext_resource type="AudioStream" uid="uid://hxvmrdv6sseg" path="res://audio/sfx/bulletHit.mp3" id="1_jjgxx"]
+[ext_resource type="Script" path="res://splashes/playerBulletBoom.gd" id="2_joba5"]
+
+[sub_resource type="Gradient" id="Gradient_pf4b3"]
+offsets = PackedFloat32Array(0, 0.714286, 1)
+colors = PackedColorArray(0.0291323, 0.129849, 0.280782, 1, 0.27, 0.522, 0.9, 0.984314, 1, 1, 1, 0.772549)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_q2ane"]
+gradient = SubResource("Gradient_pf4b3")
+
+[sub_resource type="Curve" id="Curve_01scu"]
+max_value = 3.0
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.559091, 2.04906), 0.0, 0.0, 0, 0, Vector2(0.986364, 1.46038), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_i0rh4"]
+curve = SubResource("Curve_01scu")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_bjjml"]
+particle_flag_disable_z = true
+spread = 180.0
+initial_velocity_min = 140.0
+initial_velocity_max = 200.0
+gravity = Vector3(0, 0, 0)
+damping_min = 960.0
+damping_max = 1440.0
+scale_min = 0.9
+scale_max = 1.1
+scale_over_velocity_max = 200.0
+scale_over_velocity_curve = SubResource("CurveTexture_i0rh4")
+color_ramp = SubResource("GradientTexture1D_q2ane")
+turbulence_noise_strength = 0.56
+
+[node name="PlayerBulletBoom" type="GPUParticles2D"]
+z_index = 1
+scale = Vector2(1.5, 1.5)
+emitting = false
+amount = 64
+process_material = SubResource("ParticleProcessMaterial_bjjml")
+texture = ExtResource("1_gde8r")
+lifetime = 0.5
+one_shot = true
+explosiveness = 0.75
+script = ExtResource("2_joba5")
+
+[node name="Sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("1_jjgxx")
+volume_db = -6.0
+max_distance = 1000.0
+attenuation = 0.5

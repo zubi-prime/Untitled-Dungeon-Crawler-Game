@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="PlayerCosmeticData" load_steps=2 format=3 uid="uid://du1op3fugnyl3"]
+
+[ext_resource type="Script" path="res://PlayerCosmeticData.gd" id="1_p7625"]
+
+[resource]
+script = ExtResource("1_p7625")
+skinColor = Color(0.513357, 0.360702, 0.314412, 1)
+soulColor = Color(0.233333, 1, 0, 0.752941)
+parts = Array[int]([8, 2])
+plainColors = Array[Color]([Color(0.856784, 0.547861, 0.762644, 1), Color(0.456161, 0.671307, 0.886458, 1)])
+tiddies = true
+soulVisible = true

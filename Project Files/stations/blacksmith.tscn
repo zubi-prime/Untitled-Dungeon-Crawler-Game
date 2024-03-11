@@ -1,0 +1,169 @@
+[gd_scene load_steps=17 format=3 uid="uid://l675k27u7x2j"]
+
+[ext_resource type="Script" path="res://stations/blacksmith.gd" id="1_iv3jt"]
+[ext_resource type="Texture2D" uid="uid://bl0yrd6u51580" path="res://art/stations/blacksmithSmith.png" id="2_3psq3"]
+[ext_resource type="Texture2D" uid="uid://ctnph3mcmnb0" path="res://art/lights/lightCircle32.png" id="3_1m316"]
+[ext_resource type="Texture2D" uid="uid://buwugytu32otp" path="res://art/stations/blacksmithDesk.png" id="3_f0768"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rxahe"]
+atlas = ExtResource("3_f0768")
+region = Rect2(0, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g58l3"]
+atlas = ExtResource("3_f0768")
+region = Rect2(96, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4k6pa"]
+atlas = ExtResource("3_f0768")
+region = Rect2(192, 0, 96, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_q8v81"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rxahe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g58l3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4k6pa")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k3q50"]
+size = Vector2(288, 48)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v86rg"]
+size = Vector2(78, 24)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ncqgb"]
+radius = 24.0
+height = 78.0
+
+[sub_resource type="Animation" id="Animation_cvbjs"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(2.5, 2.5)]
+}
+
+[sub_resource type="Animation" id="Animation_mla1c"]
+resource_name = "default"
+length = 4.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(-2, -2),
+"update": 0,
+"values": [Vector2(2, 2), Vector2(2.5, 2.5)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_36ruj"]
+_data = {
+"RESET": SubResource("Animation_cvbjs"),
+"default": SubResource("Animation_mla1c")
+}
+
+[sub_resource type="Animation" id="Animation_kugbv"]
+resource_name = "default"
+length = 3.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../../SpriteSmith:scale:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(-2, -2),
+"update": 0,
+"values": [3.0, 2.7]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_072qp"]
+_data = {
+"default": SubResource("Animation_kugbv")
+}
+
+[node name="Blacksmith" type="Node2D"]
+script = ExtResource("1_iv3jt")
+stationTitle = "blacksmith"
+
+[node name="SpriteSmith" type="Sprite2D" parent="."]
+position = Vector2(0, -96)
+scale = Vector2(3, 3)
+texture = ExtResource("2_3psq3")
+
+[node name="SpriteDesk" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -96)
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_q8v81")
+autoplay = "default"
+frame_progress = 0.194977
+
+[node name="Light" type="PointLight2D" parent="SpriteDesk"]
+position = Vector2(-36.5, -5)
+scale = Vector2(2.5, 2.5)
+color = Color(1, 0.807843, 0.74902, 1)
+energy = 1.5
+texture = ExtResource("3_1m316")
+
+[node name="StaticBody" type="StaticBody2D" parent="." groups=["walls"]]
+collision_layer = 33
+collision_mask = 0
+
+[node name="HitboxDesk" type="CollisionShape2D" parent="StaticBody"]
+position = Vector2(0, -24)
+shape = SubResource("RectangleShape2D_k3q50")
+
+[node name="HitboxSmith1" type="CollisionShape2D" parent="StaticBody"]
+position = Vector2(0, -60)
+shape = SubResource("RectangleShape2D_v86rg")
+
+[node name="HitboxSmith2" type="CollisionShape2D" parent="StaticBody"]
+position = Vector2(0, -72)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_ncqgb")
+
+[node name="Dialog" type="Label" parent="."]
+offset_left = -192.0
+offset_top = -240.0
+offset_right = 192.0
+offset_bottom = -144.0
+text = "There are no wugs in bah sing say."
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="AnimationPlayerLight" type="AnimationPlayer" parent="."]
+root_node = NodePath("../SpriteDesk/Light")
+libraries = {
+"": SubResource("AnimationLibrary_36ruj")
+}
+autoplay = "default"
+
+[node name="AnimationPlayerSmith" type="AnimationPlayer" parent="."]
+root_node = NodePath("../SpriteDesk/Light")
+libraries = {
+"": SubResource("AnimationLibrary_072qp")
+}
+autoplay = "default"

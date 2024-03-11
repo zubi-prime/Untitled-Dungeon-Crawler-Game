@@ -1,0 +1,210 @@
+[gd_scene load_steps=25 format=3 uid="uid://duy3uh3ji0r6o"]
+
+[ext_resource type="Script" path="res://enemies/ligamancer.gd" id="1_a5jff"]
+[ext_resource type="Shader" path="res://enemies/enemySprite.gdshader" id="2_ev37e"]
+[ext_resource type="Texture2D" uid="uid://8vhbiijcmysg" path="res://art/enemies/ligamancer.png" id="2_qm3o4"]
+[ext_resource type="Script" path="res://stateMachine.gd" id="3_sti7j"]
+[ext_resource type="Script" path="res://enemyStates/idleEnemyState.gd" id="4_3ce25"]
+[ext_resource type="Script" path="res://enemyStates/strafeEnemyState.gd" id="5_1x2uc"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qfmlh"]
+shader = ExtResource("2_ev37e")
+shader_parameter/whiteFlash = null
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y3wpd"]
+atlas = ExtResource("2_qm3o4")
+region = Rect2(54, 0, 18, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m821d"]
+atlas = ExtResource("2_qm3o4")
+region = Rect2(18, 0, 18, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c5ig7"]
+atlas = ExtResource("2_qm3o4")
+region = Rect2(18, 0, 18, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_trj1a"]
+atlas = ExtResource("2_qm3o4")
+region = Rect2(36, 0, 18, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wrtek"]
+atlas = ExtResource("2_qm3o4")
+region = Rect2(0, 0, 18, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_80lgm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y3wpd")
+}],
+"loop": true,
+"name": &"attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m821d")
+}],
+"loop": true,
+"name": &"charge",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c5ig7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_trj1a")
+}],
+"loop": true,
+"name": &"fuel",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wrtek")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_intyc"]
+atlas = ExtResource("2_qm3o4")
+region = Rect2(18, 16, 18, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1ihky"]
+atlas = ExtResource("2_qm3o4")
+region = Rect2(36, 16, 18, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ca4mj"]
+atlas = ExtResource("2_qm3o4")
+region = Rect2(0, 16, 18, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_i8lk3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_intyc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1ihky")
+}],
+"loop": true,
+"name": &"attack >:3",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ca4mj")
+}],
+"loop": true,
+"name": &"idle :3",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rf8t4"]
+radius = 6.57647
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5crou"]
+radius = 15.0
+
+[sub_resource type="Animation" id="Animation_hbje3"]
+resource_name = "charge"
+
+[sub_resource type="Animation" id="Animation_8gys1"]
+resource_name = "shoot"
+
+[sub_resource type="Animation" id="Animation_lcj5e"]
+resource_name = "walk"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_niutd"]
+_data = {
+"charge": SubResource("Animation_hbje3"),
+"shoot": SubResource("Animation_8gys1"),
+"walk": SubResource("Animation_lcj5e")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_on1s4"]
+radius = 6.0
+
+[node name="Ligamancer" type="CharacterBody2D" groups=["enemy"]]
+collision_layer = 4
+collision_mask = 5
+motion_mode = 1
+script = ExtResource("1_a5jff")
+title = "ligamancer"
+maxHealth = 35.0
+knockbackMult = 0.6
+goldDroppedMean = 74.0
+goldDroppedDeviation = 8.0
+boundingSize = Vector2(54, 48)
+
+[node name="SpriteBuffer" type="Node2D" parent="."]
+
+[node name="Body" type="AnimatedSprite2D" parent="SpriteBuffer"]
+material = SubResource("ShaderMaterial_qfmlh")
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_80lgm")
+animation = &"attack"
+autoplay = "idle"
+offset = Vector2(0, -7)
+
+[node name="Head" type="AnimatedSprite2D" parent="SpriteBuffer"]
+material = SubResource("ShaderMaterial_qfmlh")
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_i8lk3")
+animation = &"idle :3"
+autoplay = "idle :3"
+frame_progress = 0.703488
+offset = Vector2(0, -7)
+
+[node name="Hitbox" type="CollisionShape2D" parent="."]
+position = Vector2(0, -6.5)
+rotation = 1.5708
+shape = SubResource("CircleShape2D_rf8t4")
+
+[node name="Hurtbox" type="Area2D" parent="." groups=["enemy hurtbox"]]
+process_mode = 1
+position = Vector2(9, -21)
+collision_layer = 4
+collision_mask = 8
+
+[node name="Hitbox" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(-9, 0)
+shape = SubResource("CircleShape2D_5crou")
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("3_sti7j")
+startingState = 1
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource("4_3ce25")
+friction = 0.16
+
+[node name="Strafe" type="Node" parent="StateMachine"]
+script = ExtResource("5_1x2uc")
+friction = 0.2
+targetDistance = 350.0
+moveSpeed = 5000.0
+rotationSpeed = 4500.0
+
+[node name="AttackTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="MidAttackTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_niutd")
+}
+
+[node name="NavAgent" type="NavigationAgent2D" parent="."]
+
+[node name="PlayerShapecast" type="ShapeCast2D" parent="."]
+shape = SubResource("CircleShape2D_on1s4")
+collision_mask = 34
+collide_with_areas = true
+
+[connection signal="timeout" from="AttackTimer" to="." method="attackTimerTimeout"]

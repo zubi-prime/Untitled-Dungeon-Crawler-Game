@@ -1,0 +1,112 @@
+[gd_scene load_steps=12 format=3 uid="uid://cwucld4aufpjc"]
+
+[ext_resource type="Script" path="res://bullets/enemyBullet.gd" id="1_fa3gc"]
+[ext_resource type="Texture2D" uid="uid://bsj24klbe718d" path="res://art/bullets/bulletBasic.png" id="2_cmhmn"]
+[ext_resource type="Script" path="res://stateMachine.gd" id="3_dkux2"]
+[ext_resource type="Script" path="res://bulletStates/basicBulletState.gd" id="4_vwcos"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pa6xh"]
+atlas = ExtResource("2_cmhmn")
+region = Rect2(0, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eihxt"]
+atlas = ExtResource("2_cmhmn")
+region = Rect2(8, 0, 8, 8)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vl384"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pa6xh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eihxt")
+}],
+"loop": true,
+"name": &"default",
+"speed": 3.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bf4bq"]
+
+[sub_resource type="Animation" id="Animation_c4wtb"]
+resource_name = "despawn"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(6, 1),
+"update": 0,
+"values": [Vector2(3, 3), Vector2(0, 0)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_536yd"]
+resource_name = "spawn"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(0.15, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(3, 3)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_84psb"]
+_data = {
+"despawn": SubResource("Animation_c4wtb"),
+"spawn": SubResource("Animation_536yd")
+}
+
+[node name="EnemyBulletBasic" type="Area2D"]
+collision_layer = 16
+collision_mask = 34
+script = ExtResource("1_fa3gc")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+modulate = Color(1, 0.45098, 0.458824, 1)
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_vl384")
+autoplay = "default"
+frame_progress = 0.993013
+
+[node name="Hitbox" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_bf4bq")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_84psb")
+}
+autoplay = "spawn"
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("3_dkux2")
+
+[node name="Basic" type="Node" parent="StateMachine"]
+script = ExtResource("4_vwcos")
+
+[connection signal="area_entered" from="." to="." method="areaEntered"]
+[connection signal="body_entered" from="." to="." method="bodyEntered"]

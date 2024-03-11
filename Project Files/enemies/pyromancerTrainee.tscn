@@ -1,0 +1,228 @@
+[gd_scene load_steps=19 format=3 uid="uid://da8qgqhhs2pds"]
+
+[ext_resource type="Script" path="res://enemies/pyromancerTrainee.gd" id="1_n48ap"]
+[ext_resource type="Shader" path="res://enemies/enemySprite.gdshader" id="2_cf4mh"]
+[ext_resource type="Texture2D" uid="uid://ccm7wrxgwt117" path="res://art/enemies/pyromancerTrainee.png" id="3_gbf46"]
+[ext_resource type="Script" path="res://stateMachine.gd" id="4_01mdy"]
+[ext_resource type="Script" path="res://enemyStates/idleEnemyState.gd" id="5_hfwjw"]
+[ext_resource type="Script" path="res://enemyStates/strafeEnemyState.gd" id="6_jhj05"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qfmlh"]
+shader = ExtResource("2_cf4mh")
+shader_parameter/whiteFlash = null
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5x8uh"]
+atlas = ExtResource("3_gbf46")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iyc8o"]
+atlas = ExtResource("3_gbf46")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_884hs"]
+atlas = ExtResource("3_gbf46")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dgnfp"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5x8uh")
+}],
+"loop": true,
+"name": &"attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iyc8o")
+}],
+"loop": true,
+"name": &"charge",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_884hs")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q0kpn"]
+size = Vector2(24, 6)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hv4sq"]
+radius = 11.0
+
+[sub_resource type="Animation" id="Animation_uiukm"]
+resource_name = "attack"
+length = 0.25
+step = 0.005
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpriteBuffer/Sprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.075, 0.25),
+"transitions": PackedFloat32Array(0.1, -2.5, 1),
+"update": 0,
+"values": [Vector2(3, 3), Vector2(4, 2), Vector2(3, 3)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SpriteBuffer/Sprite:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_85gtm"]
+resource_name = "charge"
+length = 0.16
+loop_mode = 1
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpriteBuffer/Sprite:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.08, 0.16),
+"transitions": PackedFloat32Array(-4, -4, 1),
+"update": 0,
+"values": [-0.0523599, 0.0523599, -0.0523599]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SpriteBuffer/Sprite:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(3, 3)]
+}
+
+[sub_resource type="Animation" id="Animation_0nxp6"]
+resource_name = "walk"
+length = 0.5
+loop_mode = 1
+step = 0.005
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpriteBuffer/Sprite:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5),
+"transitions": PackedFloat32Array(-4, -4, 1),
+"update": 0,
+"values": [-0.0872665, 0.0872665, -0.0872665]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SpriteBuffer/Sprite:scale:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.125, 0.25, 0.375, 0.5),
+"transitions": PackedFloat32Array(4, 0.25, 4, 0.25, 1),
+"update": 0,
+"values": [3.0, 2.75, 3.0, 2.75, 3.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ie7kw"]
+_data = {
+"attack": SubResource("Animation_uiukm"),
+"charge": SubResource("Animation_85gtm"),
+"walk": SubResource("Animation_0nxp6")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_t2idh"]
+radius = 6.0
+
+[node name="PyromancerTrainee" type="CharacterBody2D" groups=["enemy"]]
+collision_layer = 4
+collision_mask = 5
+motion_mode = 1
+script = ExtResource("1_n48ap")
+title = "pyromancerTrainee"
+maxHealth = 7.0
+knockbackMult = 1.0
+goldDroppedMean = 24.0
+goldDroppedDeviation = 4.0
+boundingSize = Vector2(48, 48)
+
+[node name="SpriteBuffer" type="Node2D" parent="."]
+
+[node name="Sprite" type="AnimatedSprite2D" parent="SpriteBuffer"]
+material = SubResource("ShaderMaterial_qfmlh")
+rotation = -0.0872665
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_dgnfp")
+animation = &"idle"
+offset = Vector2(0, -7)
+
+[node name="Hitbox" type="CollisionShape2D" parent="."]
+position = Vector2(3.51063e-06, -3.00002)
+shape = SubResource("RectangleShape2D_q0kpn")
+
+[node name="Hurtbox" type="Area2D" parent="." groups=["enemy hurtbox"]]
+process_mode = 1
+position = Vector2(9, -21)
+collision_layer = 4
+collision_mask = 8
+
+[node name="Hitbox" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(-9, 12)
+shape = SubResource("CapsuleShape2D_hv4sq")
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("4_01mdy")
+startingState = 1
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource("5_hfwjw")
+friction = 0.16
+
+[node name="Strafe" type="Node" parent="StateMachine"]
+script = ExtResource("6_jhj05")
+friction = 0.1
+targetDistance = 500.0
+moveSpeed = 1700.0
+rotationSpeed = 1200.0
+
+[node name="AttackTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="MidAttackTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ie7kw")
+}
+autoplay = "walk"
+
+[node name="PlayerShapecast" type="ShapeCast2D" parent="."]
+shape = SubResource("CircleShape2D_t2idh")
+collision_mask = 34
+collide_with_areas = true
+
+[node name="NavAgent" type="NavigationAgent2D" parent="."]
+
+[connection signal="timeout" from="AttackTimer" to="." method="attackTimerTimeout"]

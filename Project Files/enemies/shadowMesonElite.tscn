@@ -1,0 +1,236 @@
+[gd_scene load_steps=19 format=3 uid="uid://f8svrdhtja1l"]
+
+[ext_resource type="Script" path="res://enemies/shadowMeson.gd" id="1_t1sgf"]
+[ext_resource type="Texture2D" uid="uid://bsiaudqeu8pv" path="res://art/enemies/shadowMeson.png" id="2_ct0qp"]
+[ext_resource type="Shader" path="res://enemies/enemySprite.gdshader" id="2_js6ht"]
+[ext_resource type="Script" path="res://stateMachine.gd" id="3_m5o7x"]
+[ext_resource type="Script" path="res://enemyStates/idleEnemyState.gd" id="4_4fuoo"]
+[ext_resource type="Script" path="res://enemyStates/trudgeEnemyState.gd" id="5_sl33a"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jpvsp"]
+shader = ExtResource("2_js6ht")
+shader_parameter/whiteFlash = null
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_quo0d"]
+atlas = ExtResource("2_ct0qp")
+region = Rect2(18, 0, 18, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0smk1"]
+atlas = ExtResource("2_ct0qp")
+region = Rect2(0, 0, 18, 17)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vlajk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_quo0d")
+}],
+"loop": true,
+"name": &"attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0smk1")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_lw41v"]
+radius = 5.5
+height = 40.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_apj8q"]
+radius = 17.0294
+
+[sub_resource type="Animation" id="Animation_n1cxe"]
+resource_name = "RESET"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpriteBuffer/Sprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(3, 3)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SpriteBuffer/Sprite:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_aqre5"]
+resource_name = "attack"
+length = 0.2
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpriteBuffer/Sprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.2),
+"transitions": PackedFloat32Array(4, 1, -4, 1),
+"update": 0,
+"values": [Vector2(3, 3), Vector2(3.375, 1.5), Vector2(3.375, 1.5), Vector2(3, 3)]
+}
+
+[sub_resource type="Animation" id="Animation_m48wj"]
+resource_name = "attack charge"
+length = 0.2
+loop_mode = 1
+step = 0.005
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpriteBuffer/Sprite:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(-2, -2, 1),
+"update": 0,
+"values": [-0.0698132, 0.0698132, -0.0698132]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SpriteBuffer/Sprite:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2),
+"transitions": PackedFloat32Array(-2, -2, -2, -2, -2),
+"update": 0,
+"values": [Vector2(2.9, 3.4), Vector2(3.4, 2.6), Vector2(2.9, 3.4), Vector2(3.4, 2.6), Vector2(2.9, 3.4)]
+}
+
+[sub_resource type="Animation" id="Animation_irarg"]
+resource_name = "trudge"
+length = 0.2
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpriteBuffer/Sprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(0.25, 1, 1),
+"update": 0,
+"values": [Vector2(3, 3), Vector2(5, 0.2), Vector2(3, 3)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SpriteBuffer/Sprite:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(0.1, 3, 1),
+"update": 0,
+"values": [0.0, 0.139626, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_uat0q"]
+_data = {
+"RESET": SubResource("Animation_n1cxe"),
+"attack": SubResource("Animation_aqre5"),
+"attack charge": SubResource("Animation_m48wj"),
+"trudge": SubResource("Animation_irarg")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uyojx"]
+size = Vector2(51.25, 46)
+
+[node name="ShadowMesonElite" type="CharacterBody2D" groups=["enemy"]]
+scale = Vector2(1.5, 1.5)
+collision_layer = 4
+collision_mask = 5
+motion_mode = 1
+script = ExtResource("1_t1sgf")
+title = "shadowMesonElite"
+maxHealth = 60.0
+knockbackMult = 0.4
+damage = 2
+goldDroppedMean = 220.0
+goldDroppedDeviation = 10.0
+elite = true
+boundingSize = Vector2(72, 72)
+
+[node name="SpriteBuffer" type="Node2D" parent="."]
+position = Vector2(0, -1.5)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="SpriteBuffer"]
+material = SubResource("ShaderMaterial_jpvsp")
+position = Vector2(9, 0)
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_vlajk")
+animation = &"idle"
+offset = Vector2(0, -7)
+
+[node name="Hitbox" type="CollisionShape2D" parent="."]
+position = Vector2(0, -5.5)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_lw41v")
+
+[node name="Hurtbox" type="Area2D" parent="." groups=["enemy hurtbox"]]
+process_mode = 1
+position = Vector2(9, -21)
+collision_layer = 4
+collision_mask = 8
+
+[node name="Hitbox" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(-9, 0)
+shape = SubResource("CircleShape2D_apj8q")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_uat0q")
+}
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("3_m5o7x")
+startingState = 1
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource("4_4fuoo")
+friction = 0.3
+
+[node name="Trudge" type="Node" parent="StateMachine"]
+script = ExtResource("5_sl33a")
+friction = 0.16
+moveSpeed = 56.0
+interval = 0.8
+
+[node name="Attackbox" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 2
+monitoring = false
+
+[node name="Hitbox" type="CollisionShape2D" parent="Attackbox"]
+position = Vector2(3.625, 0)
+shape = SubResource("RectangleShape2D_uyojx")
+
+[node name="MidAttackTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="NavAgent" type="NavigationAgent2D" parent="."]
+
+[connection signal="area_entered" from="Attackbox" to="." method="attackboxAreaEntered"]

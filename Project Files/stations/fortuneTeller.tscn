@@ -1,0 +1,230 @@
+[gd_scene load_steps=22 format=3 uid="uid://dry73ti7lu87"]
+
+[ext_resource type="Script" path="res://stations/fortuneTeller.gd" id="1_kbtc2"]
+[ext_resource type="Texture2D" uid="uid://u8aakg2kly1f" path="res://art/stations/fortuneTellerTeller.png" id="2_ddfkw"]
+[ext_resource type="Texture2D" uid="uid://3k3kkktlhi1d" path="res://art/stations/fortuneTellerDesk.png" id="3_whvq7"]
+[ext_resource type="Texture2D" uid="uid://ctnph3mcmnb0" path="res://art/lights/lightCircle32.png" id="4_16bhe"]
+[ext_resource type="Texture2D" uid="uid://dhfuyuyi87v8e" path="res://art/stations/fortuneTellerRunes.png" id="4_q22y6"]
+[ext_resource type="Texture2D" uid="uid://dp2tx8smx0t26" path="res://art/particles/fortuneTellerLamp.png" id="5_cb0g8"]
+
+[sub_resource type="Gradient" id="Gradient_5dyj8"]
+offsets = PackedFloat32Array(0, 0.0879121, 0.406593, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 0.372549, 1, 1, 1, 0.372549, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ak0yg"]
+gradient = SubResource("Gradient_5dyj8")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_cth0j"]
+particle_flag_disable_z = true
+emission_shape_offset = Vector3(0, -8, 0)
+inherit_velocity_ratio = 1.0
+direction = Vector3(0, -1, 0)
+spread = 0.0
+gravity = Vector3(0, 0, 0)
+linear_accel_min = 4.0
+linear_accel_max = 4.0
+scale_min = 3.0
+scale_max = 3.0
+scale_over_velocity_max = 20.0
+color = Color(1, 1, 1, 0.74902)
+color_ramp = SubResource("GradientTexture1D_ak0yg")
+
+[sub_resource type="Gradient" id="Gradient_2nunn"]
+offsets = PackedFloat32Array(0, 0.285714, 0.527473, 0.747253, 1)
+colors = PackedColorArray(1, 1, 1, 0.443137, 1, 1, 1, 0.372549, 0.658824, 0.658824, 0.658824, 0.14902, 1, 1, 1, 0.372549, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_x7qvf"]
+gradient = SubResource("Gradient_2nunn")
+
+[sub_resource type="Curve" id="Curve_2e3fl"]
+min_value = -1.0
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.504545, 1), 0.0, 0.0, 0, 0, Vector2(0.504555, -0.992453), 0.0, 0.0, 0, 0, Vector2(1, -1), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_i5uba"]
+curve = SubResource("Curve_2e3fl")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_lgy12"]
+particle_flag_disable_z = true
+inherit_velocity_ratio = 1.0
+direction = Vector3(0, -1, 0)
+spread = 0.0
+gravity = Vector3(0, 0, 0)
+linear_accel_min = 4.11653
+linear_accel_max = 4.11653
+linear_accel_curve = SubResource("CurveTexture_i5uba")
+scale_min = 3.0
+scale_max = 3.0
+scale_over_velocity_max = 20.0
+color_ramp = SubResource("GradientTexture1D_x7qvf")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k3q50"]
+size = Vector2(288, 48)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v86rg"]
+size = Vector2(78, 24)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ncqgb"]
+radius = 24.0
+height = 78.0
+
+[sub_resource type="Animation" id="Animation_kugbv"]
+resource_name = "default"
+length = 10.0
+loop_mode = 1
+step = 1.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpriteDesk/LampGlow:process_material:linear_accel_min")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 5),
+"transitions": PackedFloat32Array(-2, -2),
+"update": 0,
+"values": [4.0, 8.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SpriteDesk/LampGlow:process_material:linear_accel_max")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 5),
+"transitions": PackedFloat32Array(-2, -2),
+"update": 0,
+"values": [4.0, 8.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SpriteDesk/LampGlow/TopBar:position:y")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(4, 8),
+"transitions": PackedFloat32Array(-2, -2),
+"update": 0,
+"values": [-5.5, -11.5]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("SpriteDesk/Light:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(4, 8),
+"transitions": PackedFloat32Array(-2, -2),
+"update": 0,
+"values": [Vector2(3, 3), Vector2(5, 5)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qurim"]
+_data = {
+"default": SubResource("Animation_kugbv")
+}
+
+[sub_resource type="Animation" id="Animation_bs48v"]
+resource_name = "default"
+length = 3.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpriteTeller:position:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(-1.5, -1.5),
+"update": 0,
+"values": [-96.0, -89.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4xydt"]
+_data = {
+"default": SubResource("Animation_bs48v")
+}
+
+[node name="FortuneTeller" type="Node2D"]
+script = ExtResource("1_kbtc2")
+stationTitle = "fortuneTeller"
+
+[node name="SpriteTeller" type="Sprite2D" parent="."]
+position = Vector2(0, -89.4745)
+scale = Vector2(3, 2.71204)
+texture = ExtResource("2_ddfkw")
+
+[node name="SpriteDesk" type="Sprite2D" parent="."]
+position = Vector2(0, -96)
+scale = Vector2(3, 3)
+texture = ExtResource("3_whvq7")
+
+[node name="RuneGlow" type="GPUParticles2D" parent="SpriteDesk"]
+position = Vector2(0, 7.99988)
+amount = 2
+process_material = SubResource("ParticleProcessMaterial_cth0j")
+texture = ExtResource("4_q22y6")
+lifetime = 4.0
+preprocess = 4.0
+
+[node name="LampGlow" type="GPUParticles2D" parent="SpriteDesk"]
+position = Vector2(-28, -4.5)
+amount = 6
+process_material = SubResource("ParticleProcessMaterial_lgy12")
+texture = ExtResource("5_cb0g8")
+lifetime = 4.0
+preprocess = 4.0
+
+[node name="TopBar" type="Sprite2D" parent="SpriteDesk/LampGlow"]
+position = Vector2(0, -10.8499)
+texture = ExtResource("5_cb0g8")
+
+[node name="Light" type="PointLight2D" parent="SpriteDesk"]
+position = Vector2(-28, -4.5)
+scale = Vector2(4.7833, 4.7833)
+color = Color(0.258824, 1, 1, 1)
+energy = 1.8
+texture = ExtResource("4_16bhe")
+
+[node name="StaticBody" type="StaticBody2D" parent="." groups=["walls"]]
+collision_layer = 33
+collision_mask = 0
+
+[node name="HitboxDesk" type="CollisionShape2D" parent="StaticBody"]
+position = Vector2(0, -24)
+shape = SubResource("RectangleShape2D_k3q50")
+
+[node name="HitboxSmith1" type="CollisionShape2D" parent="StaticBody"]
+position = Vector2(0, -60)
+shape = SubResource("RectangleShape2D_v86rg")
+
+[node name="HitboxSmith2" type="CollisionShape2D" parent="StaticBody"]
+position = Vector2(0, -72)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_ncqgb")
+
+[node name="Dialog" type="Label" parent="."]
+offset_left = -192.0
+offset_top = -240.0
+offset_right = 192.0
+offset_bottom = -144.0
+text = "There are 2 wugs in bah sing say."
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="AnimationPlayerLight" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_qurim")
+}
+autoplay = "default"
+
+[node name="AnimationPlayerTeller" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_4xydt")
+}
+autoplay = "default"

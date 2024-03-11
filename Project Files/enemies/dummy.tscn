@@ -1,0 +1,41 @@
+[gd_scene load_steps=5 format=3 uid="uid://bi0d1ye4s5gl1"]
+
+[ext_resource type="Script" path="res://enemies/dummy.gd" id="1_6vjk0"]
+[ext_resource type="Texture2D" uid="uid://bcn8fgaei1b7v" path="res://art/enemies/dummy.png" id="1_scsjc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xgkum"]
+size = Vector2(92, 12)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bf3ye"]
+radius = 20.0
+height = 54.0
+
+[node name="Dummy" type="CharacterBody2D" groups=["enemy"]]
+collision_layer = 5
+collision_mask = 5
+motion_mode = 1
+script = ExtResource("1_6vjk0")
+title = "dummy"
+maxHealth = 100.0
+
+[node name="Sprite" type="Sprite2D" parent="."]
+position = Vector2(0, -45)
+scale = Vector2(3, 3)
+texture = ExtResource("1_scsjc")
+
+[node name="Hitbox" type="CollisionShape2D" parent="."]
+position = Vector2(0, -7)
+shape = SubResource("RectangleShape2D_xgkum")
+
+[node name="Hurtbox" type="Area2D" parent="." groups=["enemy hurtbox"]]
+position = Vector2(0, -45)
+collision_layer = 4
+collision_mask = 8
+
+[node name="Hitbox" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(-3, -15)
+shape = SubResource("CapsuleShape2D_bf3ye")
+
+[node name="Hitbox2" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(0, 38)
+shape = SubResource("RectangleShape2D_xgkum")
