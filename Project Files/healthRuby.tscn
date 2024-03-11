@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cuih7ipu1o6iq"]
+
+[ext_resource type="Texture2D" uid="uid://dhwa7v3yc8fxd" path="res://art/healthRuby.png" id="1_20v6v"]
+
+[node name="HealthRuby" type="Sprite2D"]
+texture = ExtResource("1_20v6v")

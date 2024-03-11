@@ -1,0 +1,470 @@
+[gd_scene load_steps=42 format=3 uid="uid://dmaykcouajf6s"]
+
+[ext_resource type="Script" path="res://characterCreator.gd" id="1_jsr4i"]
+[ext_resource type="Script" path="res://characterCreationPreview.gd" id="1_lbv2h"]
+[ext_resource type="Theme" uid="uid://leu23xyn0sgw" path="res://defaultTheme.tres" id="2_khmb2"]
+[ext_resource type="Texture2D" uid="uid://bjq1ah15bjvxx" path="res://art/playerSheet.png" id="2_rq6fx"]
+[ext_resource type="PackedScene" uid="uid://dvmm7522hr5yk" path="res://optionSpinner.tscn" id="2_umi4g"]
+[ext_resource type="Texture2D" uid="uid://cebx4knxqtfbn" path="res://art/playerSoul.png" id="5_pyem7"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qrlp5"]
+atlas = ExtResource("5_pyem7")
+region = Rect2(0, 0, 4, 4)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xnfv5"]
+atlas = ExtResource("5_pyem7")
+region = Rect2(4, 0, 4, 4)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_v6ryu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qrlp5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xnfv5")
+}],
+"loop": true,
+"name": &"default",
+"speed": 3.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_othva"]
+atlas = ExtResource("2_rq6fx")
+region = Rect2(0, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bks3i"]
+atlas = ExtResource("2_rq6fx")
+region = Rect2(32, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dscm5"]
+atlas = ExtResource("2_rq6fx")
+region = Rect2(64, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hdult"]
+atlas = ExtResource("2_rq6fx")
+region = Rect2(96, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e70yg"]
+atlas = ExtResource("2_rq6fx")
+region = Rect2(128, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w00vp"]
+atlas = ExtResource("2_rq6fx")
+region = Rect2(160, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kf657"]
+atlas = ExtResource("2_rq6fx")
+region = Rect2(192, 96, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_167x6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_othva")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bks3i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dscm5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hdult")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e70yg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w00vp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kf657")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d0bp0"]
+atlas = ExtResource("2_rq6fx")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bu8qi"]
+atlas = ExtResource("2_rq6fx")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k1lu7"]
+atlas = ExtResource("2_rq6fx")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2f7pg"]
+atlas = ExtResource("2_rq6fx")
+region = Rect2(96, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p2vg8"]
+atlas = ExtResource("2_rq6fx")
+region = Rect2(128, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7ui4w"]
+atlas = ExtResource("2_rq6fx")
+region = Rect2(160, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b1arc"]
+atlas = ExtResource("2_rq6fx")
+region = Rect2(192, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uqul3"]
+atlas = ExtResource("2_rq6fx")
+region = Rect2(224, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ec66o"]
+atlas = ExtResource("2_rq6fx")
+region = Rect2(256, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_51e7i"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d0bp0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bu8qi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k1lu7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2f7pg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p2vg8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7ui4w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b1arc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uqul3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ec66o")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bgcue"]
+atlas = ExtResource("2_rq6fx")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6s3ex"]
+atlas = ExtResource("2_rq6fx")
+region = Rect2(32, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ppo8s"]
+atlas = ExtResource("2_rq6fx")
+region = Rect2(64, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_epb20"]
+atlas = ExtResource("2_rq6fx")
+region = Rect2(96, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tu10m"]
+atlas = ExtResource("2_rq6fx")
+region = Rect2(128, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p1qtd"]
+atlas = ExtResource("2_rq6fx")
+region = Rect2(160, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_doakw"]
+atlas = ExtResource("2_rq6fx")
+region = Rect2(192, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_60bsr"]
+atlas = ExtResource("2_rq6fx")
+region = Rect2(224, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7cydh"]
+atlas = ExtResource("2_rq6fx")
+region = Rect2(256, 64, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dy687"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bgcue")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6s3ex")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ppo8s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_epb20")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tu10m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p1qtd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_doakw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_60bsr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7cydh")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="Animation_j03w5"]
+resource_name = "idle"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(-2.25, -2.25, -2.25),
+"update": 0,
+"values": [30.0, 28.0, 30.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_innu1"]
+_data = {
+"idle": SubResource("Animation_j03w5")
+}
+
+[sub_resource type="InputEventKey" id="InputEventKey_hqy3u"]
+device = -1
+ctrl_pressed = true
+keycode = 4194309
+
+[sub_resource type="Shortcut" id="Shortcut_03pes"]
+events = [SubResource("InputEventKey_hqy3u")]
+
+[node name="CharacterCreator" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_khmb2")
+script = ExtResource("1_jsr4i")
+
+[node name="Tabs" type="TabContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -960.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_khmb2")
+theme_override_font_sizes/font_size = 48
+
+[node name="Body" type="ScrollContainer" parent="Tabs"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBox" type="VBoxContainer" parent="Tabs/Body"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="SkinColorLabel" type="Label" parent="Tabs/Body/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Skin Color:"
+
+[node name="SkinColor" type="ColorPicker" parent="Tabs/Body/VBox"]
+layout_mode = 2
+theme_override_constants/margin = 20
+edit_alpha = false
+color_mode = 1
+can_add_swatches = false
+sampler_visible = false
+color_modes_visible = false
+presets_visible = false
+
+[node name="Tiddies" type="CheckButton" parent="Tabs/Body/VBox"]
+custom_minimum_size = Vector2(260, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "Breasts"
+
+[node name="SoulColorLabel" type="Label" parent="Tabs/Body/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Soul (Hitbox) Color:"
+
+[node name="SoulColor" type="ColorPicker" parent="Tabs/Body/VBox"]
+layout_mode = 2
+theme_override_constants/margin = 20
+color_mode = 1
+can_add_swatches = false
+sampler_visible = false
+color_modes_visible = false
+presets_visible = false
+
+[node name="SoulVisible" type="CheckButton" parent="Tabs/Body/VBox"]
+custom_minimum_size = Vector2(260, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "Soul Visible (Recommended)"
+
+[node name="Clothes" type="ScrollContainer" parent="Tabs"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBox" type="VBoxContainer" parent="Tabs/Clothes"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Shirt" parent="Tabs/Clothes/VBox" instance=ExtResource("2_umi4g")]
+custom_minimum_size = Vector2(600, 80)
+layout_mode = 2
+theme = ExtResource("2_khmb2")
+options = Array[String](["Shirtless", "Long Sleeve", "Short Sleeve", "Vest", "Tank Top", "Camisole", "Tube Top", "Long Hoodie", "Crop Top"])
+title = "Top"
+
+[node name="Pants" parent="Tabs/Clothes/VBox" instance=ExtResource("2_umi4g")]
+custom_minimum_size = Vector2(600, 80)
+layout_mode = 2
+theme = ExtResource("2_khmb2")
+options = Array[String](["Pants", "Skirt 1", "Skirt 2", "Skirt 3", "Shorts 1", "Shorts 2"])
+title = "Bottom"
+
+[node name="Colors" type="ScrollContainer" parent="Tabs"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBox" type="VBoxContainer" parent="Tabs/Colors"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ShirtLabel" type="Label" parent="Tabs/Colors/VBox"]
+custom_minimum_size = Vector2(0, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Top:
+"
+vertical_alignment = 2
+
+[node name="Shirt" type="ColorPicker" parent="Tabs/Colors/VBox"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/margin = 40
+edit_alpha = false
+color_mode = 1
+can_add_swatches = false
+sampler_visible = false
+color_modes_visible = false
+presets_visible = false
+
+[node name="PantsLabel" type="Label" parent="Tabs/Colors/VBox"]
+custom_minimum_size = Vector2(0, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Bottom:"
+vertical_alignment = 2
+
+[node name="Pants" type="ColorPicker" parent="Tabs/Colors/VBox"]
+layout_mode = 2
+theme_override_constants/margin = 40
+edit_alpha = false
+color_mode = 1
+can_add_swatches = false
+sampler_visible = false
+color_modes_visible = false
+presets_visible = false
+
+[node name="Preview" type="Node2D" parent="."]
+position = Vector2(1440, 943)
+scale = Vector2(30, 30)
+script = ExtResource("1_lbv2h")
+
+[node name="Soul" type="AnimatedSprite2D" parent="Preview"]
+modulate = Color(1, 1, 1, 0.498039)
+z_index = 1
+position = Vector2(0, -8.35669)
+scale = Vector2(1, 1.04459)
+sprite_frames = SubResource("SpriteFrames_v6ryu")
+autoplay = "default"
+metadata/_edit_lock_ = true
+
+[node name="Body" type="Sprite2D" parent="Preview"]
+position = Vector2(0, -16)
+texture = ExtResource("2_rq6fx")
+region_enabled = true
+region_rect = Rect2(0, 0, 32, 32)
+metadata/_edit_lock_ = true
+
+[node name="Pants" type="AnimatedSprite2D" parent="Preview"]
+position = Vector2(0, -16)
+sprite_frames = SubResource("SpriteFrames_167x6")
+metadata/_edit_lock_ = true
+
+[node name="Shirt" type="AnimatedSprite2D" parent="Preview"]
+position = Vector2(0, -16)
+sprite_frames = SubResource("SpriteFrames_51e7i")
+metadata/_edit_lock_ = true
+
+[node name="Tiddies" type="AnimatedSprite2D" parent="Preview/Shirt"]
+visible = false
+sprite_frames = SubResource("SpriteFrames_dy687")
+metadata/_edit_lock_ = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Preview"]
+libraries = {
+"": SubResource("AnimationLibrary_innu1")
+}
+autoplay = "idle"
+
+[node name="Confirm" type="Button" parent="."]
+layout_mode = 0
+offset_left = 1310.0
+offset_top = 969.0
+offset_right = 1570.0
+offset_bottom = 1065.0
+theme_override_font_sizes/font_size = 64
+shortcut = SubResource("Shortcut_03pes")
+text = "Confirm"
+
+[node name="Label" type="Label" parent="Confirm"]
+modulate = Color(1, 1, 1, 0.537255)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 3.0
+offset_top = -23.0
+offset_right = 3.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "(Ctrl + Enter)"
+
+[connection signal="pressed" from="Confirm" to="." method="confirmPressed"]

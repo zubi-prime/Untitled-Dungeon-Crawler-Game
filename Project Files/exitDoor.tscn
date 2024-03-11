@@ -1,0 +1,194 @@
+[gd_scene load_steps=10 format=3 uid="uid://b56uoq7iry2qp"]
+
+[ext_resource type="Script" path="res://exitDoor.gd" id="1_vlusx"]
+[ext_resource type="Texture2D" uid="uid://e1r2cscxitg1" path="res://art/roomComponents/pinkDungeon/exitDoor.png" id="2_gunuy"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_etfxa"]
+atlas = ExtResource("2_gunuy")
+region = Rect2(0, 0, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n5qkw"]
+atlas = ExtResource("2_gunuy")
+region = Rect2(64, 0, 64, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gekvw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_etfxa")
+}],
+"loop": true,
+"name": &"closed",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n5qkw")
+}],
+"loop": true,
+"name": &"open",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rs1q4"]
+size = Vector2(96, 96)
+
+[sub_resource type="Animation" id="Animation_8hxy3"]
+resource_name = "appear"
+length = 0.5
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Popup:scale:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(0.2, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Popup:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.49),
+"transitions": PackedFloat32Array(0.2, 1),
+"update": 0,
+"values": [-144.0, -240.0]
+}
+
+[sub_resource type="Animation" id="Animation_2umi1"]
+resource_name = "disappear"
+length = 0.25
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Popup:scale:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(4, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Popup:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(4, 1),
+"update": 0,
+"values": [-240.0, -144.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wjt1u"]
+_data = {
+"appear": SubResource("Animation_8hxy3"),
+"disappear": SubResource("Animation_2umi1")
+}
+
+[node name="ExitDoor" type="Area2D"]
+z_index = -1
+collision_layer = 128
+collision_mask = 2
+script = ExtResource("1_vlusx")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_gekvw")
+animation = &"open"
+autoplay = "closed"
+offset = Vector2(16, 0)
+
+[node name="Hitbox" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_rs1q4")
+
+[node name="AnimationPlayerPopup" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_wjt1u")
+}
+
+[node name="Popup" type="Control" parent="."]
+modulate = Color(1, 1, 1, 0.87451)
+light_mask = 2
+z_index = 2
+layout_mode = 3
+anchors_preset = 0
+offset_left = -384.0
+offset_top = -240.0
+offset_right = 384.0
+offset_bottom = -76.0
+
+[node name="Background" type="Panel" parent="Popup"]
+light_mask = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Confirmation" type="Label" parent="Popup"]
+visible = false
+light_mask = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 64
+text = "Are you
+sure?"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Info" type="VBoxContainer" parent="Popup"]
+light_mask = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -76.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SpacingTop" type="Control" parent="Popup/Info"]
+light_mask = 2
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Popup/Info"]
+light_mask = 2
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Exit"
+horizontal_alignment = 1
+
+[node name="Description" type="RichTextLabel" parent="Popup/Info"]
+light_mask = 2
+layout_mode = 2
+size_flags_vertical = 0
+bbcode_enabled = true
+text = "
+Press [E] or [X] to move on to the next floor of the dungeon."
+fit_content = true
+scroll_active = false
+
+[node name="SpacingBottom" type="Control" parent="Popup/Info"]
+light_mask = 2
+custom_minimum_size = Vector2(0, 12)
+layout_mode = 2
+
+[connection signal="area_entered" from="." to="." method="areaEntered"]
+[connection signal="area_exited" from="." to="." method="areaExited"]

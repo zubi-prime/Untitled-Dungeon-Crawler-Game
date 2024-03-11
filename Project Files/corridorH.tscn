@@ -1,0 +1,35 @@
+[gd_scene load_steps=4 format=3 uid="uid://c7uct83vc2vm4"]
+
+[ext_resource type="TileSet" uid="uid://dmyxw02tiln3w" path="res://rooms/pinkDungeon/tileset.tres" id="1_07eg5"]
+[ext_resource type="Texture2D" uid="uid://d1mlk5q0haemh" path="res://art/tilesets/testFloor.png" id="2_26t5k"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_itymj"]
+size = Vector2(192, 48)
+
+[node name="Corridor" type="Node2D" groups=["corridor", "walls"]]
+z_index = -1
+
+[node name="Walls" type="TileMap" parent="." groups=["walls"]]
+position = Vector2(0, -96)
+scale = Vector2(3, 3)
+tile_set = ExtResource("1_07eg5")
+format = 2
+layer_0/tile_data = PackedInt32Array(4, 131072, 2, -65532, 131072, 0, 3, 65536, 2, -65533, 65536, 0, 2, 65536, 2, -65534, 65536, 0, 1, 65536, 2, -65535, 65536, 0, 0, 65536, 2, -65536, 65536, 0, 65535, 65536, 2, -1, 65536, 0, 65534, 65536, 2, -2, 65536, 0, 65533, 65536, 2, -3, 65536, 0, 65532, 65536, 2, -4, 65536, 0, 65531, 0, 2, -5, 0, 0, 262148, 131072, 2, 196612, 131072, 0, 262147, 65536, 2, 196611, 65536, 0, 262146, 65536, 2, 196610, 65536, 0, 262145, 65536, 2, 196609, 65536, 0, 262144, 65536, 2, 196608, 65536, 0, 327679, 65536, 2, 262143, 65536, 0, 327678, 65536, 2, 262142, 65536, 0, 327677, 65536, 2, 262141, 65536, 0, 327676, 65536, 2, 262140, 65536, 0, 327675, 0, 2, 262139, 0, 0)
+
+[node name="Area" type="Area2D" parent="."]
+scale = Vector2(3, 3)
+collision_mask = 2
+
+[node name="Hitbox" type="CollisionShape2D" parent="Area"]
+position = Vector2(0, -8)
+shape = SubResource("RectangleShape2D_itymj")
+
+[node name="Background" type="TextureRect" parent="."]
+z_index = -1
+offset_left = -288.0
+offset_top = -48.0
+offset_right = -96.0
+offset_bottom = -16.0
+scale = Vector2(3, 3)
+texture = ExtResource("2_26t5k")
+stretch_mode = 1

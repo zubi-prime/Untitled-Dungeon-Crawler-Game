@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://lixnwo7kqrv8"]
+
+[ext_resource type="Script" path="res://dungeon.gd" id="1_vv855"]
+[ext_resource type="PackedScene" uid="uid://cbs5htp7cvyym" path="res://player.tscn" id="2_nquks"]
+
+[node name="Dungeon" type="Node2D"]
+y_sort_enabled = true
+script = ExtResource("1_vv855")
+zoneTitle = "pinkDungeon"
+dungeonSuccessionTitle = "pinkDungeon1"
+dungeonLength = 6.0
+dungeonDifficulty = 6.0
+dungeonDifficultyScaling = 2.0
+
+[node name="Player" parent="." instance=ExtResource("2_nquks")]
+
+[connection signal="combatEnded" from="." to="." method="onCombatEnded"]
+[connection signal="combatStarted" from="." to="." method="onCombatStarted"]
+[connection signal="enemyDied" from="." to="." method="updateCursor"]
+[connection signal="enemySpawned" from="." to="." method="updateCursor"]
+[connection signal="healthChanged" from="Player" to="Player/Camera/HealthBarBase" method="healthChanged"]

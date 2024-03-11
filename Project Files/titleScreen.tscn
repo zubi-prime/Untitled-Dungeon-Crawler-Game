@@ -1,0 +1,72 @@
+[gd_scene load_steps=2 format=3 uid="uid://dryykentx22bd"]
+
+[ext_resource type="Script" path="res://titleScreen.gd" id="1_8j21c"]
+
+[node name="TitleScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_8j21c")
+
+[node name="Container" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -190.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 2
+
+[node name="StartRunButton" type="Button" parent="Container"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 96
+text = "Start Run"
+
+[node name="Spacing" type="Control" parent="Container"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="EditCharacterButton" type="Button" parent="Container"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 96
+text = "Edit Character"
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 2
+offset_left = 72.0
+offset_top = 248.0
+offset_right = 1828.0
+offset_bottom = 491.0
+size_flags_vertical = 2
+theme_override_font_sizes/font_size = 128
+text = "untitled dungeon crawler thingy"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+uppercase = true
+
+[node name="Tooltip" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -140.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 32
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[connection signal="mouse_entered" from="Container/StartRunButton" to="." method="setTooltip" binds= ["Fight through 3 randomly generated dungeons. After the third, the game will crash. Sorry about that."]]
+[connection signal="mouse_exited" from="Container/StartRunButton" to="." method="setTooltip" binds= [""]]
+[connection signal="pressed" from="Container/StartRunButton" to="." method="startRunPressed"]
+[connection signal="mouse_entered" from="Container/EditCharacterButton" to="." method="setTooltip" binds= ["Edit the appearence of your character. This is purely cosmetic."]]
+[connection signal="mouse_exited" from="Container/EditCharacterButton" to="." method="setTooltip" binds= [""]]
+[connection signal="pressed" from="Container/EditCharacterButton" to="." method="editCharacterPressed"]

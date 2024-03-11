@@ -1,0 +1,22 @@
+SOUND:
+	
+	Sound effects taken primarily from ZapSplat.com.
+	
+	from ZapSplat.com:
+		"8bit splat, bomb boom, blast, cannon, classic cartoon" by Epic Stock Media
+		"Arrow pass by" by Fork Media
+		"Apple crush or knife twist inside" by ZapSplat
+		"Fast loud whoosh with a hard smack impact hit 2" by ZapSplat
+		"Already broken eggshell crush and crack in hand 1" by ZapSplat
+		"Retro 8-bit game, pickup or collect object 02" by ZapSplat
+		"Bicycle bell ring, ping, slightly broken 1" by ZapSplat
+		"Bicycle bell ring, ping, slightly broken 2" by ZapSplat
+		
+		
+
+
+ART/TEXT:
+	
+	All art made by me unless stated otherwise.
+	
+	Default font: Alagard by Hewett Tsoi from dafont.ocm

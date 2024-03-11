@@ -1,0 +1,59 @@
+[gd_scene load_steps=6 format=3 uid="uid://dvmm7522hr5yk"]
+
+[ext_resource type="Script" path="res://optionSpinner.gd" id="1_nfn5y"]
+[ext_resource type="Texture2D" uid="uid://bqfis0adlja2v" path="res://art/arrows.png" id="1_rt6ji"]
+[ext_resource type="Theme" uid="uid://leu23xyn0sgw" path="res://defaultTheme.tres" id="2_6uvyw"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pkq5n"]
+atlas = ExtResource("1_rt6ji")
+region = Rect2(0, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vdmqq"]
+atlas = ExtResource("1_rt6ji")
+region = Rect2(8, 0, 8, 8)
+
+[node name="OptionSpinner" type="PanelContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_nfn5y")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+alignment = 1
+
+[node name="Left" type="Button" parent="HBoxContainer"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+icon = SubResource("AtlasTexture_pkq5n")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Buffer1" type="Control" parent="HBoxContainer"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme = ExtResource("2_6uvyw")
+theme_override_font_sizes/font_size = 32
+text = "Shirtless"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Buffer2" type="Control" parent="HBoxContainer"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+
+[node name="Right" type="Button" parent="HBoxContainer"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+icon = SubResource("AtlasTexture_vdmqq")
+icon_alignment = 1
+expand_icon = true
+
+[connection signal="pressed" from="HBoxContainer/Left" to="." method="changeValue" binds= [-1]]
+[connection signal="pressed" from="HBoxContainer/Right" to="." method="changeValue" binds= [1]]
